@@ -4,20 +4,23 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 import java.time.ZoneId
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var spm: SharedPreferenceManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         spm = SharedPreferenceManager(this)
 
-        //spm.saveLastUsageDate()
+        setUpAndroidClient()
     }//Close On Create
 
     override fun onPause() {
@@ -43,5 +46,20 @@ class MainActivity: AppCompatActivity() {
             toEpochSecond() * 1000, pendingIntent)
         */
     }//Close on Pause
+
+    private fun setUpAndroidClient() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                println("Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log
+            Log.d("FCMToken", token)
+        })
+    }
 }
 

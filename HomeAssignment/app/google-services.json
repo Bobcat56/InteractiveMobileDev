@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795718593873",
+    "project_id": "homeassignment-f5099",
+    "storage_bucket": "homeassignment-f5099.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795718593873:android:5530048bfd43ad2ef5f770",
+        "android_client_info": {
+          "package_name": "com.example.homeassignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPZa2OI_lHiWLNQ5IlMij-QvQzyAItvtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
