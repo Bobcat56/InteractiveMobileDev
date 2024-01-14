@@ -45,6 +45,7 @@ class MainActivity: AppCompatActivity() {
             LocalDateTime.now().plusDays(5).atZone(ZoneId.systemDefault()).
             toEpochSecond() * 1000, pendingIntent)
         */
+
     }//Close on Pause
 
     private fun setUpAndroidClient() {

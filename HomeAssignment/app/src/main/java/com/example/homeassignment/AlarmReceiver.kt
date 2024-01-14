@@ -11,7 +11,6 @@ import androidx.core.app.NotificationCompat
 class AlarmReceiver: BroadcastReceiver() {
 
     private lateinit var spm: SharedPreferenceManager
-    private lateinit var mfms: MyFirebaseMessagingService
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null) {
@@ -24,13 +23,10 @@ class AlarmReceiver: BroadcastReceiver() {
             if (diffOfSeconds >= 15) {
                 //Used for testing purposes
                 showNotification(context)
-                mfms.sendNotification()
-
             }
 
             if (diffOfDays >= 5) {
                 showNotification(context)
-                mfms.sendNotification()
             }
         }
     }

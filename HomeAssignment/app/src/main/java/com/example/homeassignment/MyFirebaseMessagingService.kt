@@ -9,9 +9,30 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
-    public fun sendNotification() {
+
+    private lateinit var spm: SharedPreferenceManager
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        spm = SharedPreferenceManager(this)
+        val lastUsedDate = spm.getLastUsedDate()
+        val currentDate = System.currentTimeMillis()
+        val diffOfSeconds = (currentDate - lastUsedDate) / 1000 //Used for testing purposes
+        val diffOfDays = (currentDate - lastUsedDate) / (1000 * 60 * 60 * 24)
+
+        if (diffOfSeconds >= 15) {
+            //Used for testing purposes
+            sendNotification()
+        }
+
+        if (diffOfDays >= 5) {
+            sendNotification()
+        }
+    }
+
+
+    private fun sendNotification() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val requestCode = 0
