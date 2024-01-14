@@ -11,11 +11,18 @@ import java.time.ZoneId
 class MainActivity: AppCompatActivity() {
 
     private lateinit var spm: SharedPreferenceManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         spm = SharedPreferenceManager(this)
+
+        //spm.saveLastUsageDate()
+    }//Close On Create
+
+    override fun onPause() {
+        super.onPause()
+
         spm.saveLastUsageDate()
 
         val intent = Intent(this, AlarmReceiver::class.java)
@@ -24,19 +31,17 @@ class MainActivity: AppCompatActivity() {
 
         val alarmManager = this.getSystemService(ALARM_SERVICE) as AlarmManager
 
-
-        alarmManager.set(AlarmManager.RTC,
-            LocalDateTime.now().plusDays(5).atZone(ZoneId.systemDefault()).
-            toEpochSecond() * 1000, pendingIntent)
-
-
-        /*
         //Testing if it works in 15 seconds
         alarmManager.set(AlarmManager.RTC,
             LocalDateTime.now().plusSeconds(15).atZone(ZoneId.systemDefault()).
             toEpochSecond() * 1000, pendingIntent)
 
-         */
-    }
+        /*
+        //Alarm going off after 5 days
+        alarmManager.set(AlarmManager.RTC,
+            LocalDateTime.now().plusDays(5).atZone(ZoneId.systemDefault()).
+            toEpochSecond() * 1000, pendingIntent)
+        */
+    }//Close on Pause
 }
 
